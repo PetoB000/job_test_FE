@@ -1,0 +1,13 @@
+.navbar {
+  transform: scale(1.5);
+  transform-origin: top;
+  height: 120px; /* Adjust based on your needs */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+}

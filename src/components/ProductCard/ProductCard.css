@@ -1,0 +1,120 @@
+.product-card {
+  position: relative;
+  cursor: pointer;
+  padding: 16px;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.product-image {
+  width: 100%;
+  height: 330px;
+  object-fit: contain;
+}
+
+.quick-add-button {
+  position: absolute;
+  right: 55px;
+  bottom: 85px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #5ece7b;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card:hover .quick-add-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.out-of-stock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.out-of-stock-overlay span {
+  font-size: 24px;
+  color: #8d8f9a;
+  text-transform: uppercase;
+}
+
+.product-info {
+  margin-top: 24px;
+}
+
+.product-name {
+  font-weight: 300;
+  margin: 0;
+}
+
+.product-price {
+  font-weight: 500;
+  display: block;
+  margin-top: 8px;
+}
+
+.quick-add-button svg {
+  scale: 1.5;
+}
+
+/* Add these styles to your existing CSS */
+
+.attribute-container {
+  margin-top: 12px;
+}
+
+.attribute-name {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1d1f22;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.attribute-values {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.attribute-button {
+  min-width: 63px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  background: white;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.attribute-button.selected {
+  background: #1d1f22;
+  color: white;
+}
