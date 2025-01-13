@@ -7,10 +7,9 @@ interface CartItemProps {
   item: Product;
   quantity: number;
   selectedAttributes: { [key: string]: string };
-  onUpdateQuantity: (productId: string, quantity: number) => void;
+  onUpdateQuantity: (productId: string, quantity: number, attributes: { [key: string]: string }) => void;
   onRemoveFromCart: (productId: string, attributes: { [key: string]: string }) => void;
 }
-
 const CartItem: FC<CartItemProps> = ({
   item,
   quantity,
@@ -18,11 +17,15 @@ const CartItem: FC<CartItemProps> = ({
   onUpdateQuantity,
   onRemoveFromCart,
 }) => {
+  const handleQuantityChange = (newQuantity: number) => {
+    onUpdateQuantity(item.id, newQuantity, selectedAttributes)
+  };
+
   const handleDecrease = () => {
     if (quantity === 1) {
       onRemoveFromCart(item.id, selectedAttributes);
     } else {
-      onUpdateQuantity(item.id, quantity - 1);
+      handleQuantityChange(quantity - 1);
     }
   };
 
@@ -47,7 +50,7 @@ const CartItem: FC<CartItemProps> = ({
       <div className="col-1">
         <div className="quantity-controls">
           <button
-            onClick={() => onUpdateQuantity(item.id, quantity + 1)}
+            onClick={() => handleQuantityChange(quantity + 1)}
             data-testid="cart-item-amount-increase"
           >
             +

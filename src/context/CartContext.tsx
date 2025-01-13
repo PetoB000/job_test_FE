@@ -23,7 +23,7 @@ interface CartContextType {
   setShowCart: (show: boolean) => void
   addToCart: (product: Product, attributes: { [key: string]: string }) => void
   removeFromCart: (productId: string, attributes: { [key: string]: string }) => void
-  updateQuantity: (productId: string, quantity: number) => void
+  updateQuantity: (productId: string, quantity: number, attributes: Attributes) => void
   placeOrder: () => Promise<void>
 }
 
@@ -96,16 +96,16 @@ export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }
 
   // Update quantity of specific item in cart
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: string, quantity: number, attributes: Attributes) => {
     setItems(currentItems =>
       currentItems.map(item =>
-        item.product.id === productId
+        item.product.id === productId && 
+        JSON.stringify(item.Attributes) === JSON.stringify(attributes)
           ? { ...item, quantity }
           : item
       )
     )
   }
-
   // Process order placement
   const placeOrder = async () => {
     try {
