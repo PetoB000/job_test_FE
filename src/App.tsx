@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/Header/Header'
 import CategoryPage from './pages/CategoryPage/CategoryPage'
 import ProductPage from './pages/ProductPage/ProductPage'
@@ -8,18 +8,20 @@ import './App.css'
 
 const App: FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <CartProvider>
         <Header />
         <div className="container-fluid">
           <Routes>
-            <Route index element={<CategoryPage />} />
-            <Route path="/:category" element={<CategoryPage />} />
-            <Route path="product/:productId" element={<ProductPage />} />
+            <Route path="/" element={<CategoryPage />} />
+            <Route path="/all" element={<CategoryPage />} />
+            <Route path="/clothes" element={<CategoryPage />} />
+            <Route path="/tech" element={<CategoryPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
           </Routes>
         </div>
       </CartProvider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
