@@ -32,17 +32,16 @@ export const GET_PRODUCT = `
 `
 
 export const GET_CATEGORY = `
-  query Category($id: ID!) {
-    category(id: $id) {
+  query Category($name: String!) {
+    category(name: $name) {
       id
       name
       products {
         id
         name
-        description
-        brand
-        in_stock
         price
+        description
+        in_stock
         gallery
         attributes {
           id

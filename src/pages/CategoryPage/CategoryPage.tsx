@@ -13,14 +13,14 @@ interface CategoryResponse {
 
 const CategoryPage: FC = () => {
   const navigate = useNavigate()
-  const { categoryId } = useParams()
+  const { category: categoryName } = useParams()
   const [category, setCategory] = useState<Category | null>(null)
 
   useEffect(() => {
     const fetchCategory = async () => {
       try {
         const response = await fetchGraphQL<CategoryResponse>(GET_CATEGORY, {
-          id: categoryId
+          name: categoryName || 'all'
         })
         setCategory(response.data.category)
       } catch (error) {
@@ -29,7 +29,7 @@ const CategoryPage: FC = () => {
     }
 
     fetchCategory()
-  }, [categoryId])
+  }, [categoryName])
 
   const handleProductClick = (productId: string) => {
     navigate(`/product/${productId}`)
@@ -53,4 +53,5 @@ const CategoryPage: FC = () => {
     </div>
   )
 }
+
 export default CategoryPage
