@@ -47,7 +47,8 @@ const Header: FC = () => {
         <nav className="d-flex gap-4">
           {categories.map((category) => {
             const path = `/${category.name.toLowerCase()}`;
-            const isActive = location.pathname === path;
+            const isActive = location.pathname === path || (location.pathname === '/' && path === '/all');
+
 
             return (
               <a
