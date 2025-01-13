@@ -42,20 +42,25 @@ const Header: FC = () => {
           {categories.map((category) => {
             const path = `/${category.name.toLowerCase()}`;
             const isActive = location.pathname === path;
-            
+
             return (
-              <Link
-                key={category.id}
-                to={path}
-                data-testid={isActive ? 'active-category-link' : 'category-link'}
-                className={`text-decoration-none ${
-                  isActive
-                    ? "fw-bold text-success border-bottom border-success"
-                    : "text-dark"
-                }`}
+              <div
+                data-testid={
+                  isActive ? "active-category-link" : "category-link"
+                }
               >
-                {category.name.toLocaleUpperCase()}
-              </Link>
+                <Link
+                  key={category.id}
+                  to={path}
+                  className={`text-decoration-none ${
+                    isActive
+                      ? "fw-bold text-success border-bottom border-success"
+                      : "text-dark"
+                  }`}
+                >
+                  {category.name.toLocaleUpperCase()}
+                </Link>
+              </div>
             );
           })}
         </nav>
