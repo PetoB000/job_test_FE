@@ -36,7 +36,7 @@ const ProductPage: FC = () => {
           <h1 className="text-start fw-bold">{product?.name}</h1>
           <div className="row">
             {product?.attributes?.map((attribute) => (
-              <div className="mb-4" key={attribute.id} data-testid={`product-attribute-${attribute.id}`}>
+              <div className="mb-4" key={attribute.id} data-testid={`product-attribute-${attribute.name}`}>
                 <Attribute
                   attribute={attribute}
                   selectedValue={selectedAttributes[attribute.id]}

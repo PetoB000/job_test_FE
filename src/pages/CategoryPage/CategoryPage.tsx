@@ -4,6 +4,7 @@ import { fetchGraphQL } from '../../services/graphql/client'
 import { GET_CATEGORY } from '../../services/graphql/queries'
 import { Category } from '../../services/graphql/types'
 import ProductCard from '../../components/ProductCard/ProductCard'
+import { toKebabCase } from '../../utils/helpers'
 
 interface CategoryResponse {
   data: {
@@ -45,6 +46,7 @@ const CategoryPage: FC = () => {
             key={product.id} 
             onClick={() => handleProductClick(product.id)}
             style={{ cursor: 'pointer' }}
+            data-testid={`product-${toKebabCase(product.name)}`}
           >
             <ProductCard product={product} />
           </div>
