@@ -17,8 +17,7 @@ interface CategoriesResponse {
 
 const Header: FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [showCart, setShowCart] = useState(false);
-  const { items } = useContext(CartContext);
+  const { items, showCart, setShowCart } = useContext(CartContext);
   const location = useLocation();
   const navigate = useNavigate();
 
