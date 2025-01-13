@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { AttributeSet } from "../../services/graphql/types";
-/* import { toKebabCase } from "../../utils/helpers"; */
+import { toKebabCase } from "../../utils/helpers";
 
 interface AttributeProps {
   attribute: AttributeSet;
@@ -23,11 +23,11 @@ const Attribute: FC<AttributeProps> = ({ attribute, selectedValue, onSelect, var
       : `${baseClass} ${selectedClass} p-2 fs-6`;
   };
 
-/*   const getCartItemTestId = (itemValue: string, isSelected: boolean) => {
+  const getCartItemTestId = (itemValue: string, isSelected: boolean) => {
     const attributeName = toKebabCase(attribute.name);
     const baseTestId = `cart-item-attribute-${attributeName}-${toKebabCase(itemValue)}`;
     return isSelected ? `${baseTestId}-selected` : baseTestId;
-  }; */
+  };
 
   return (
     <>
@@ -38,8 +38,7 @@ const Attribute: FC<AttributeProps> = ({ attribute, selectedValue, onSelect, var
         {attribute.items.map((item) => (
           <div
             key={item.id}
-            data-testid = {`product-attribute-${attribute.name.toLowerCase()}-${item.displayValue}`}
-            /* data-testid={variant === 'product' ? `product-attribute-${attribute.name.toLowerCase()}-${item.value.toLowerCase()}` : getCartItemTestId(item.displayValue, selectedValue === item.id)} */
+            data-testid={variant === 'product' ? `product-attribute-${attribute.name.toLowerCase()}-${item.value}` : getCartItemTestId(item.displayValue, selectedValue === item.id)}
             className={variant === 'product' ? "product-attribute-item me-3" : "col p-0"}
             onClick={() => onSelect && onSelect(attribute.id, item.id)}
             style={{ cursor: onSelect ? 'pointer' : 'default' }}
