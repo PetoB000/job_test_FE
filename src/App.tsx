@@ -14,11 +14,10 @@ const App: FC = () => {
         <Header />
         <div className="container-fluid">
           <Routes>
-            <Route path="/job_test_FE/" element={<Navigate to="/category/1" replace />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/" element={<Navigate to="category/1" replace />} />
+            <Route path="category/:categoryId" element={<CategoryPage />} />
+            <Route path="product/:productId" element={<ProductPage />} />
           </Routes>
-          
         </div>
       </CartProvider>
     </HashRouter>
