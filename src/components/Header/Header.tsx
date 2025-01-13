@@ -1,43 +1,41 @@
-import { FC, useState, useContext, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-import { fetchGraphQL } from '../../services/graphql/client'
-import { GET_CATEGORIES } from '../../services/graphql/queries'
-import { Category } from '../../services/graphql/types'
-import { Logo } from '../Icons/Logo'
-import { CartIcon } from '../Icons/CartIcon'
-import { CartContext } from '../../context/CartContext'
-import CartOverlay from '../CartOverlay/CartOverlay'
-import './Header.css'
-
+import { FC, useState, useContext, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { fetchGraphQL } from "../../services/graphql/client";
+import { GET_CATEGORIES } from "../../services/graphql/queries";
+import { Category } from "../../services/graphql/types";
+import { Logo } from "../Icons/Logo";
+import { CartIcon } from "../Icons/CartIcon";
+import { CartContext } from "../../context/CartContext";
+import CartOverlay from "../CartOverlay/CartOverlay";
+import "./Header.css";
 
 interface CategoriesResponse {
   data: {
-    categories: Category[]
-  }
+    categories: Category[];
+  };
 }
 
 // Main navigation header component
 const Header: FC = () => {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [showCart, setShowCart] = useState(false)
-  const { items } = useContext(CartContext)
-  
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [showCart, setShowCart] = useState(false);
+  const { items } = useContext(CartContext);
+
   // Calculate total number of items in cart
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   // Fetch available categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetchGraphQL<CategoriesResponse>(GET_CATEGORIES)
-        setCategories(response.data.categories)
+        const response = await fetchGraphQL<CategoriesResponse>(GET_CATEGORIES);
+        setCategories(response.data.categories);
       } catch (error) {
-        console.error('Failed to fetch categories:', error)
+        console.error("Failed to fetch categories:", error);
       }
-    }
-    fetchCategories()
-  }, [])
-
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <header>
@@ -47,15 +45,16 @@ const Header: FC = () => {
             <NavLink
               key={category.id}
               to={`/${category.name.toLowerCase()}`}
+              data-testid={({ isActive }: { isActive: boolean }) => isActive ? 'active-category-link' : 'category-link'}
               className={({ isActive }) =>
-                `text-decoration-none ${isActive ? 'fw-bold text-success border-bottom border-success' : 'text-dark'}`
+                `text-decoration-none ${
+                  isActive
+                    ? "fw-bold text-success border-bottom border-success"
+                    : "text-dark"
+                }`
               }
             >
-              {({ isActive }) => (
-                <span data-testid={isActive ? 'active-category-link' : 'category-link'}>
-                  {category.name.toLocaleUpperCase()}
-                </span>
-              )}
+              {category.name.toLocaleUpperCase()}
             </NavLink>
           ))}
         </nav>
@@ -65,7 +64,7 @@ const Header: FC = () => {
         </div>
 
         <div className="position-relative">
-          <button 
+          <button
             className="btn btn-link position-relative p-0"
             onClick={() => setShowCart(!showCart)}
             data-testid="cart-btn"
@@ -81,7 +80,7 @@ const Header: FC = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
