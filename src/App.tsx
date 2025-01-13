@@ -18,6 +18,7 @@ const App: FC = () => {
             <Route path="/category/:categoryId" element={<CategoryPage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
           </Routes>
+          
         </div>
       </CartProvider>
     </HashRouter>
