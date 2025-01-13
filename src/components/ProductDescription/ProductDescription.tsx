@@ -1,7 +1,16 @@
 import { FC } from "react";
 
 const ProductDescription: FC<{ description: string }> = ({ description }) => {
-  // Convert DOM elements to React elements recursively
+  const hasHTMLTags = /<[a-z][\s\S]*>/i.test(description);
+
+  if (!hasHTMLTags) {
+    return (
+      <div className="col text-start" data-testid="product-description">
+        {description}
+      </div>
+    );
+  }
+
   const convertElement = (node: Element): JSX.Element => {
     const TagName = node.tagName.toLowerCase() as keyof JSX.IntrinsicElements;
     const children = Array.from(node.children).map(child => convertElement(child as Element));
@@ -13,7 +22,6 @@ const ProductDescription: FC<{ description: string }> = ({ description }) => {
     );
   };
 
-  // Parse HTML string and convert to React elements
   const renderHTML = (htmlContent: string) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
@@ -26,4 +34,5 @@ const ProductDescription: FC<{ description: string }> = ({ description }) => {
     </div>
   );
 };
+
 export default ProductDescription;
