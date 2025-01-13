@@ -46,7 +46,7 @@ const Header: FC = () => {
           {categories.map((category) => (
             <NavLink
               key={category.id}
-              to={`/category/${category.id}`}
+              to={`/${category.name.toLowerCase()}`}
               className={({ isActive }) =>
                 `text-decoration-none ${isActive ? 'fw-bold text-success border-bottom border-success' : 'text-dark'}`
               }
