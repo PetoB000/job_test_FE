@@ -1,12 +1,15 @@
 import { FC } from "react";
 
 const ProductDescription: FC<{ description: string }> = ({ description }) => {
-  const hasHTMLTags = /<[a-z][\s\S]*>/i.test(description);
-
-  if (!hasHTMLTags) {
+  // Parse the content first
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(description, 'text/html');
+  
+  // If body has no child elements but has text, return the text directly
+  if (doc.body.children.length === 0 && doc.body.textContent) {
     return (
       <div className="col text-start" data-testid="product-description">
-        {description}
+        {doc.body.textContent}
       </div>
     );
   }
@@ -22,15 +25,9 @@ const ProductDescription: FC<{ description: string }> = ({ description }) => {
     );
   };
 
-  const renderHTML = (htmlContent: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, 'text/html');
-    return Array.from(doc.body.children).map(convertElement);
-  };
-
   return (
     <div className="col text-start" data-testid="product-description">
-      {renderHTML(description)}
+      {Array.from(doc.body.children).map(convertElement)}
     </div>
   );
 };
