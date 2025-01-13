@@ -6,7 +6,6 @@ import ProductPage from './pages/ProductPage/ProductPage'
 import { CartProvider } from './context/CartContext'
 import './App.css'
 
-
 const App: FC = () => {
   return (
     <HashRouter>
@@ -14,7 +13,7 @@ const App: FC = () => {
         <Header />
         <div className="container-fluid">
           <Routes>
-            <Route path="/" element={<Navigate to="category/1" replace />} />
+            <Route index element={<Navigate to="category/1" replace />} />
             <Route path="category/:categoryId" element={<CategoryPage />} />
             <Route path="product/:productId" element={<ProductPage />} />
           </Routes>

@@ -1,4 +1,4 @@
-const GRAPHQL_ENDPOINT = 'http://localhost:8000/graphql'
+const GRAPHQL_ENDPOINT = 'https://peto-b-job-test-be-909e49a9ea6e.herokuapp.com/graphql'
 
 export const fetchGraphQL = async <T>(query: string, variables = {}): Promise<T> => {
   try {
