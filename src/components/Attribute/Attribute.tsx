@@ -38,7 +38,7 @@ const Attribute: FC<AttributeProps> = ({ attribute, selectedValue, onSelect, var
         {attribute.items.map((item) => (
           <div
             key={item.id}
-            data-testestid={variant === 'product' ? `product-attribute-${attribute.name.toLowerCase}-${item.value.toLowerCase}` : ""}
+            data-testestid={variant === 'product' ? `product-attribute-${attribute.name.toLowerCase()}-${item.value.toLowerCase()}` : ""}
             className={variant === 'product' ? "product-attribute-item me-3" : "col p-0"}
             onClick={() => onSelect && onSelect(attribute.id, item.id)}
             style={{ cursor: onSelect ? 'pointer' : 'default' }}
