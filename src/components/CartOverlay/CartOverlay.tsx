@@ -38,7 +38,7 @@ const CartOverlay: FC = () => {
   return (
     <>
     <Backdrop />
-    <div className="cart-overlay ">
+    <div className="cart-overlay " data-testid="cart-overlay">
       <div className="cart-header ">
         <span className="cart-title">My Bag,</span>
         <span className="items-count">{items.length} items</span>
