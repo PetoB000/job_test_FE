@@ -1,5 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { fetchGraphQL } from "../../services/graphql/client";
 import { GET_CATEGORIES } from "../../services/graphql/queries";
 import { Category } from "../../services/graphql/types";
@@ -15,16 +15,14 @@ interface CategoriesResponse {
   };
 }
 
-// Main navigation header component
 const Header: FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [showCart, setShowCart] = useState(false);
   const { items } = useContext(CartContext);
+  const location = useLocation();
 
-  // Calculate total number of items in cart
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Fetch available categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -41,22 +39,25 @@ const Header: FC = () => {
     <header>
       <div className="container d-flex justify-content-between align-items-center py-4">
         <nav className="d-flex gap-4">
-          {categories.map((category) => (
-            <NavLink
-              key={category.id}
-              to={`/${category.name.toLowerCase()}`}
-              data-testid={({ isActive }: { isActive: boolean }) => isActive ? 'active-category-link' : 'category-link'}
-              className={({ isActive }) =>
-                `text-decoration-none ${
+          {categories.map((category) => {
+            const path = `/${category.name.toLowerCase()}`;
+            const isActive = location.pathname === path;
+            
+            return (
+              <Link
+                key={category.id}
+                to={path}
+                data-testid={isActive ? 'active-category-link' : 'category-link'}
+                className={`text-decoration-none ${
                   isActive
                     ? "fw-bold text-success border-bottom border-success"
                     : "text-dark"
-                }`
-              }
-            >
-              {category.name.toLocaleUpperCase()}
-            </NavLink>
-          ))}
+                }`}
+              >
+                {category.name.toLocaleUpperCase()}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="position-absolute start-50 translate-middle-x">
