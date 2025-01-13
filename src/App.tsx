@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Header/Header'
 import CategoryPage from './pages/CategoryPage/CategoryPage'
 import ProductPage from './pages/ProductPage/ProductPage'
@@ -9,7 +9,7 @@ import './App.css'
 
 const App: FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CartProvider>
         <Header />
         <div className="container-fluid">
@@ -20,7 +20,8 @@ const App: FC = () => {
           </Routes>
         </div>
       </CartProvider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
+
 export default App
