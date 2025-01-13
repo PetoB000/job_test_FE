@@ -5,13 +5,17 @@ export default defineConfig({
   plugins: [react()],
   base: '/job_test_FE/',
   build: {
-    assetsDir: 'assets',
+    outDir: 'dist',
+    sourcemap: true,
     rollupOptions: {
-      output: {
-        assetFileNames: 'assets/[name].[ext]',
-        chunkFileNames: 'assets/[name].js',
-        entryFileNames: 'assets/[name].js',
+      input: {
+        main: './index.html',
       },
-    },
-  },
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
+      }
+    }
+  }
 })
