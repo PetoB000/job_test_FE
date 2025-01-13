@@ -1,5 +1,5 @@
 import { FC, useState, useContext, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchGraphQL } from "../../services/graphql/client";
 import { GET_CATEGORIES } from "../../services/graphql/queries";
 import { Category } from "../../services/graphql/types";
@@ -20,6 +20,7 @@ const Header: FC = () => {
   const [showCart, setShowCart] = useState(false);
   const { items } = useContext(CartContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -35,6 +36,11 @@ const Header: FC = () => {
     fetchCategories();
   }, []);
 
+  const handleCategoryClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    navigate(path);
+  };
+
   return (
     <header>
       <div className="container d-flex justify-content-between align-items-center py-4">
@@ -44,23 +50,19 @@ const Header: FC = () => {
             const isActive = location.pathname === path;
 
             return (
-              <div
-                data-testid={
-                  isActive ? "active-category-link" : "category-link"
-                }
+              <a
+                key={category.id}
+                href={path}
+                data-testid={isActive ? "active-category-link" : "category-link"}
+                className={`text-decoration-none ${
+                  isActive
+                    ? "fw-bold text-success border-bottom border-success"
+                    : "text-dark"
+                }`}
+                onClick={(e) => handleCategoryClick(e, path)}
               >
-                <Link
-                  key={category.id}
-                  to={path}
-                  className={`text-decoration-none ${
-                    isActive
-                      ? "fw-bold text-success border-bottom border-success"
-                      : "text-dark"
-                  }`}
-                >
-                  {category.name.toLocaleUpperCase()}
-                </Link>
-              </div>
+                {category.name.toLocaleUpperCase()}
+              </a>
             );
           })}
         </nav>
